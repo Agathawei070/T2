@@ -76,6 +76,18 @@ class Produtos extends Component<{}, ProdutosState> {
     this.setState({ produtoSelecionado: null, modoEdicao: false, showModal: false });
   };
 
+  handleExcluirProduto = (id: number) => {
+    if (window.confirm('Tem certeza que deseja excluir este produto?')) {
+      this.setState(prev => ({
+        produtos: prev.produtos.filter(p => p.id !== id),
+        showModal: false,
+        produtoSelecionado: null,
+        modoEdicao: false,
+        novoProduto: { id: 0, nome: '', categoria: '', preco: 0, estoque: 0 }
+      }));
+    }
+  };
+
   render() {
     const { produtos, novoProduto, produtoSelecionado, modoEdicao, showModal } = this.state;
 
@@ -115,6 +127,12 @@ class Produtos extends Component<{}, ProdutosState> {
                       onClick={() => this.abrirModal(p, true)}
                     >
                       <i className="bi bi-pencil"></i>
+                    </button>
+                    <button
+                      className="btn btn-outline-danger btn-sm"
+                      onClick={() => this.handleExcluirProduto(p.id)}
+                    >
+                      <i className="bi bi-trash"></i>
                     </button>
                   </div>
                 </div>

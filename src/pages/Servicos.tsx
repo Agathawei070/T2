@@ -79,6 +79,18 @@ class Servicos extends Component<{}, ServicosState> {
     this.setState({ servicoSelecionado: null, modoEdicao: false, showModal: false });
   };
 
+  handleExcluirServico = (id: number) => {
+    if (window.confirm('Tem certeza que deseja excluir este serviço?')) {
+      this.setState(prev => ({
+        servicos: prev.servicos.filter(s => s.id !== id),
+        showModal: false,
+        servicoSelecionado: null,
+        modoEdicao: false,
+        novoServico: { id: 0, nome: '', categoria: '', preco: 0, duracao: '' }
+      }));
+    }
+  };
+
   render() {
     const { servicos, novoServico, servicoSelecionado, modoEdicao, showModal } = this.state;
 
@@ -118,6 +130,12 @@ class Servicos extends Component<{}, ServicosState> {
                       onClick={() => this.abrirModal(s, true)}
                     >
                       <i className="bi bi-pencil"></i>
+                    </button>
+                    <button
+                      className="btn btn-outline-danger btn-sm"
+                      onClick={() => this.handleExcluirServico(s.id)}
+                    >
+                      <i className="bi bi-trash"></i>
                     </button>
                   </div>
                 </div>

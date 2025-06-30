@@ -1,12 +1,30 @@
 import { Component } from 'react';
 
+interface Pet {
+  nome: string;
+  tipo: string;
+  raca: string;
+  genero: string;
+}
+
 interface Cliente {
   nome: string;
+  nomeSocial?: string;
   email: string;
   telefone: string;
+  ddd?: string;
   cpf: string;
   dataCadastro: string;
-  observacoes: string;
+  observacoes?: string;
+  endereco?: string;
+  estado?: string;
+  cidade?: string;
+  bairro?: string;
+  rua?: string;
+  numero?: string;
+  complemento?: string;
+  cep?: string;
+  pets?: Pet[];
 }
 
 interface ClientesState {
@@ -16,103 +34,76 @@ interface ClientesState {
   clientes: Cliente[];
 }
 
-class Clientes extends Component<{}, ClientesState & { clienteSelecionado: Cliente | null }> {
-  state: ClientesState & { clienteSelecionado: Cliente | null } = {
-    ...{
-      busca: '',
-      novoCliente: {
-        nome: '',
-        email: '',
-        telefone: '',
-        cpf: '',
-        dataCadastro: '',
-        observacoes: '',
-      },
-      exibirFormulario: false,
-      clientes: [
-        {
-          nome: "João Silva",
-          email: "joao.silva@email.com",
-          telefone: "(11) 98765-4321",
-          cpf: "123.456.789-00",
-          dataCadastro: "2024-01-15",
-          observacoes: "Cliente VIP",
-        },
-        {
-          nome: "Maria Santos",
-          email: "maria.santos@email.com",
-          telefone: "(11) 91234-5678",
-          cpf: "987.654.321-00",
-          dataCadastro: "2024-02-01",
-          observacoes: "Prefere atendimento pela manhã",
-        },
-        {
-          nome: "Carlos Lima",
-          email: "carlos.lima@email.com",
-          telefone: "(21) 99876-5432",
-          cpf: "321.654.987-00",
-          dataCadastro: "2024-03-10",
-          observacoes: "Tem dois pets cadastrados",
-        },
-        {
-          nome: "Ana Oliveira",
-          email: "ana.oliveira@email.com",
-          telefone: "(31) 98712-3456",
-          cpf: "456.123.789-00",
-          dataCadastro: "2024-03-22",
-          observacoes: "Cliente frequente",
-        },
-        {
-          nome: "Pedro Souza",
-          email: "pedro.souza@email.com",
-          telefone: "(41) 99999-8888",
-          cpf: "789.456.123-00",
-          dataCadastro: "2024-04-05",
-          observacoes: "Solicitou orçamento para banho e tosa",
-        },
-        {
-          nome: "Fernanda Dias",
-          email: "fernanda.dias@email.com",
-          telefone: "(51) 98888-7777",
-          cpf: "654.321.987-00",
-          dataCadastro: "2024-04-18",
-          observacoes: "Indicada por outro cliente",
-        },
-        {
-          nome: "Lucas Costa",
-          email: "lucas.costa@email.com",
-          telefone: "(61) 97777-6666",
-          cpf: "852.963.741-00",
-          dataCadastro: "2024-05-02",
-          observacoes: "Prefere contato por WhatsApp",
-        },
-        {
-          nome: "Juliana Rocha",
-          email: "juliana.rocha@email.com",
-          telefone: "(71) 96666-5555",
-          cpf: "963.852.741-00",
-          dataCadastro: "2024-05-15",
-          observacoes: "Tem alergia a alguns produtos",
-        },
-        {
-          nome: "Rafael Alves",
-          email: "rafael.alves@email.com",
-          telefone: "(81) 95555-4444",
-          cpf: "741.852.963-00",
-          dataCadastro: "2024-06-01",
-          observacoes: "Cliente novo",
-        },
-        {
-          nome: "Paula Mendes",
-          email: "paula.mendes@email.com",
-          telefone: "(91) 94444-3333",
-          cpf: "159.357.258-00",
-          dataCadastro: "2024-06-10",
-          observacoes: "Solicitou agendamento para vacinação",
-        }
-      ]
+type EditandoCliente = Cliente & { index: number };
+
+class Clientes extends Component<{}, ClientesState & { clienteSelecionado: Cliente | null, editandoCliente: EditandoCliente | null }> {
+  state: ClientesState & { clienteSelecionado: Cliente | null, editandoCliente: EditandoCliente | null } = {
+    busca: '',
+    novoCliente: {
+      nome: '',
+      nomeSocial: '',
+      email: '',
+      telefone: '',
+      ddd: '',
+      cpf: '',
+      dataCadastro: '',
+      observacoes: '',
+      endereco: '',
+      estado: '',
+      cidade: '',
+      bairro: '',
+      rua: '',
+      numero: '',
+      complemento: '',
+      cep: '',
+      pets: [],
     },
-    clienteSelecionado: null
+    exibirFormulario: false,
+    clientes: [
+      {
+        nome: "Agatha Wei",
+        email: "agatha.wei@gmail.com",
+        telefone: "981613594",
+        ddd: "12",
+        cpf: "48044195866",
+        dataCadastro: "2025-06-29",
+        endereco: "Sergio Gonzaga de Azevedo, 201 - Jardim Por do Sol, São José dos Campos - SP, CEP: 12241340 (Casa)",
+        estado: "SP",
+        cidade: "São José dos Campos",
+        bairro: "Jardim Por do Sol",
+        rua: "Sergio Gonzaga de Azevedo",
+        numero: "201",
+        complemento: "Casa",
+        cep: "12241340",
+        pets: [
+          {
+            nome: "Buddy Nelson",
+            tipo: "Cão",
+            raca: "Fox Paulistinha",
+            genero: "Macho"
+          }
+        ]
+      },
+      {
+        nome: "Yun Yun Wei",
+        email: "Yunyunwei@live.com",
+        telefone: "",
+        ddd: "",
+        cpf: "",
+        dataCadastro: "2025-06-29",
+        endereco: "",
+        estado: "",
+        cidade: "",
+        bairro: "",
+        rua: "",
+        numero: "",
+        complemento: "",
+        cep: "",
+        pets: []
+      }
+    ],
+    clienteSelecionado: null,
+    editandoCliente: null
   };
 
   handleBuscaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -144,11 +135,22 @@ class Clientes extends Component<{}, ClientesState & { clienteSelecionado: Clien
       clientes: [...prevState.clientes, novo],
       novoCliente: {
         nome: '',
+        nomeSocial: '',
         email: '',
         telefone: '',
+        ddd: '',
         cpf: '',
         dataCadastro: '',
         observacoes: '',
+        endereco: '',
+        estado: '',
+        cidade: '',
+        bairro: '',
+        rua: '',
+        numero: '',
+        complemento: '',
+        cep: '',
+        pets: [],
       },
       exibirFormulario: false
     }));
@@ -162,8 +164,50 @@ class Clientes extends Component<{}, ClientesState & { clienteSelecionado: Clien
     this.setState({ clienteSelecionado: null });
   };
 
+  abrirModalEditar = (cliente: Cliente, index: number) => {
+    this.setState({
+      editandoCliente: { ...cliente, index }
+    });
+  };
+
+  fecharModalEditar = () => {
+    this.setState({ editandoCliente: null });
+  };
+
+  handleEditarInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    this.setState(prevState => ({
+      editandoCliente: prevState.editandoCliente
+        ? { ...prevState.editandoCliente, [name]: value }
+        : null
+    }));
+  };
+
+  handleSalvarEdicao = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const { editandoCliente, clientes } = this.state;
+    if (editandoCliente) {
+      const novosClientes = [...clientes];
+      const idx = editandoCliente.index;
+      const clienteEditado = { ...editandoCliente };
+      delete (clienteEditado as any).index;
+      novosClientes[idx] = clienteEditado;
+      this.setState({ clientes: novosClientes, editandoCliente: null });
+    }
+  };
+
+  handleDeletarCliente = (index: number) => {
+    if (window.confirm('Tem certeza que deseja excluir este cliente?')) {
+      this.setState(prevState => {
+        const novosClientes = [...prevState.clientes];
+        novosClientes.splice(index, 1);
+        return { clientes: novosClientes };
+      });
+    }
+  };
+
   render() {
-    const { busca, clientes, exibirFormulario, novoCliente, clienteSelecionado } = this.state;
+    const { busca, clientes, exibirFormulario, novoCliente, clienteSelecionado, editandoCliente } = this.state;
 
     const clientesFiltrados = clientes.filter(cliente =>
       cliente.nome.toLowerCase().includes(busca.toLowerCase())
@@ -229,7 +273,6 @@ class Clientes extends Component<{}, ClientesState & { clienteSelecionado: Clien
                         name="telefone"
                         value={novoCliente.telefone}
                         onChange={this.handleInputChange}
-                        required
                       />
                     </div>
                     <div className="col-md-6 mb-3">
@@ -240,7 +283,16 @@ class Clientes extends Component<{}, ClientesState & { clienteSelecionado: Clien
                         name="cpf"
                         value={novoCliente.cpf}
                         onChange={this.handleInputChange}
-                        required
+                      />
+                    </div>
+                    <div className="col-12 mb-3">
+                      <label className="form-label">Endereço</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="endereco"
+                        value={novoCliente.endereco}
+                        onChange={this.handleInputChange}
                       />
                     </div>
                     <div className="col-12 mb-3">
@@ -268,17 +320,24 @@ class Clientes extends Component<{}, ClientesState & { clienteSelecionado: Clien
                   <div className="card-body">
                     <h5 className="card-title">{cliente.nome}</h5>
                     <p><strong>E-mail:</strong> {cliente.email}</p>
-                    <p><strong>Telefone:</strong> {cliente.telefone}</p>
-                    <p><strong>CPF:</strong> {cliente.cpf}</p>
                     <p><strong>Data de Cadastro:</strong> {cliente.dataCadastro}</p>
-                    <p><strong>Observações:</strong> {cliente.observacoes}</p>
                   </div>
-                  <div className="card-footer text-center bg-white border-0">
+                  <div className="card-footer bg-white border-0 d-flex justify-content-center gap-2">
                     <button
                       className="btn btn-outline-dark btn-sm"
                       onClick={() => this.abrirModalDetalhes(cliente)}
                     >
                       Ver Detalhes
+                    </button>
+                    <button className="btn btn-warning btn-sm" title="Editar"
+                      onClick={() => this.abrirModalEditar(cliente, index)}
+                    >
+                      <i className="bi bi-pencil"></i>
+                    </button>
+                    <button className="btn btn-danger btn-sm" title="Excluir"
+                      onClick={() => this.handleDeletarCliente(index)}
+                    >
+                      <i className="bi bi-trash"></i>
                     </button>
                   </div>
                 </div>
@@ -302,16 +361,206 @@ class Clientes extends Component<{}, ClientesState & { clienteSelecionado: Clien
                   <div className="modal-body">
                     <p><strong>Nome:</strong> {clienteSelecionado.nome}</p>
                     <p><strong>E-mail:</strong> {clienteSelecionado.email}</p>
-                    <p><strong>Telefone:</strong> {clienteSelecionado.telefone}</p>
-                    <p><strong>CPF:</strong> {clienteSelecionado.cpf}</p>
                     <p><strong>Data de Cadastro:</strong> {clienteSelecionado.dataCadastro}</p>
-                    <p><strong>Observações:</strong> {clienteSelecionado.observacoes}</p>
+                    {clienteSelecionado.telefone && (
+                      <p><strong>Telefone:</strong> {clienteSelecionado.telefone}</p>
+                    )}
+                    {clienteSelecionado.cpf && (
+                      <p><strong>CPF:</strong> {clienteSelecionado.cpf}</p>
+                    )}
+                    {clienteSelecionado.endereco && (
+                      <div>
+                        <strong>Endereço:</strong>
+                        <ul className="mb-2">
+                          <li>{clienteSelecionado.endereco}</li>
+                        </ul>
+                      </div>
+                    )}
+                    {clienteSelecionado.pets && clienteSelecionado.pets.length > 0 && (
+                      <div>
+                        <strong>Pets:</strong>
+                        <ul>
+                          {clienteSelecionado.pets.map((pet, idx) => (
+                            <li key={idx}>
+                              <strong>Nome:</strong> {pet.nome} | <strong>Tipo:</strong> {pet.tipo} | <strong>Raça:</strong> {pet.raca} | <strong>Gênero:</strong> {pet.genero}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    {clienteSelecionado.observacoes && (
+                      <p><strong>Observações:</strong> {clienteSelecionado.observacoes}</p>
+                    )}
                   </div>
                   <div className="modal-footer bg-white">
                     <button className="btn btn-secondary" onClick={this.fecharModalDetalhes}>
                       Fechar
                     </button>
                   </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Modal de Edição */}
+          {editandoCliente && (
+            <div className="modal fade show d-block" tabIndex={-1} style={{ background: 'rgba(0,0,0,0.5)' }}>
+              <div className="modal-dialog modal-xl">
+                <div className="modal-content bg-white text-dark">
+                  <form onSubmit={this.handleSalvarEdicao}>
+                    <div className="modal-header">
+                      <h5 className="modal-title">Editar Cliente</h5>
+                      <button
+                        type="button"
+                        className="btn-close"
+                        onClick={this.fecharModalEditar}
+                      ></button>
+                    </div>
+                    <div className="modal-body">
+                      <div className="row g-3">
+                        <div className="col-md-6">
+                          <label className="form-label">Nome</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="nome"
+                            value={editandoCliente.nome}
+                            onChange={this.handleEditarInputChange}
+                            required
+                          />
+                        </div>
+                        <div className="col-md-6">
+                          <label className="form-label">Nome Social (opcional)</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="nomeSocial"
+                            value={editandoCliente.nomeSocial || ''}
+                            onChange={this.handleEditarInputChange}
+                          />
+                        </div>
+                        <div className="col-md-6">
+                          <label className="form-label">E-mail</label>
+                          <input
+                            type="email"
+                            className="form-control"
+                            name="email"
+                            value={editandoCliente.email}
+                            onChange={this.handleEditarInputChange}
+                            required
+                          />
+                        </div>
+                        <div className="col-md-3">
+                          <label className="form-label">DDD</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="ddd"
+                            value={editandoCliente.ddd || ''}
+                            onChange={this.handleEditarInputChange}
+                          />
+                        </div>
+                        <div className="col-md-3">
+                          <label className="form-label">Telefone</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="telefone"
+                            value={editandoCliente.telefone}
+                            onChange={this.handleEditarInputChange}
+                          />
+                        </div>
+                        <div className="col-md-6">
+                          <label className="form-label">CPF</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="cpf"
+                            value={editandoCliente.cpf}
+                            onChange={this.handleEditarInputChange}
+                          />
+                        </div>
+                        <div className="col-md-6">
+                          <label className="form-label">Estado</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="estado"
+                            value={editandoCliente.estado || ''}
+                            onChange={this.handleEditarInputChange}
+                          />
+                        </div>
+                        <div className="col-md-6">
+                          <label className="form-label">Cidade</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="cidade"
+                            value={editandoCliente.cidade || ''}
+                            onChange={this.handleEditarInputChange}
+                          />
+                        </div>
+                        <div className="col-md-6">
+                          <label className="form-label">Bairro</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="bairro"
+                            value={editandoCliente.bairro || ''}
+                            onChange={this.handleEditarInputChange}
+                          />
+                        </div>
+                        <div className="col-md-12">
+                          <label className="form-label">Rua</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="rua"
+                            value={editandoCliente.rua || ''}
+                            onChange={this.handleEditarInputChange}
+                          />
+                        </div>
+                        <div className="col-md-3">
+                          <label className="form-label">Número</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="numero"
+                            value={editandoCliente.numero || ''}
+                            onChange={this.handleEditarInputChange}
+                          />
+                        </div>
+                        <div className="col-md-3">
+                          <label className="form-label">Complemento</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="complemento"
+                            value={editandoCliente.complemento || ''}
+                            onChange={this.handleEditarInputChange}
+                          />
+                        </div>
+                        <div className="col-md-6">
+                          <label className="form-label">CEP</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="cep"
+                            value={editandoCliente.cep || ''}
+                            onChange={this.handleEditarInputChange}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="modal-footer bg-white">
+                      <button className="btn btn-secondary" type="button" onClick={this.fecharModalEditar}>
+                        Cancelar
+                      </button>
+                      <button className="btn btn-success" type="submit">
+                        Salvar Alterações
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>

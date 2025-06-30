@@ -274,6 +274,16 @@ export default class ListaVendas extends Component<{}, State> {
     });
   };
 
+  excluirVenda = (index: number) => {
+    if (window.confirm('Tem certeza que deseja excluir esta venda?')) {
+      this.setState(prev => {
+        const novasVendas = [...prev.vendas];
+        novasVendas.splice(index, 1);
+        return { vendas: novasVendas, vendaSelecionada: null };
+      });
+    }
+  };
+
   render() {
     const { vendas, mostrarFormulario, clientes, novaVenda, novoItem, itensDisponiveis, vendaSelecionada } = this.state;
 
@@ -333,6 +343,13 @@ export default class ListaVendas extends Component<{}, State> {
                           title="Ver detalhes"
                         >
                           <i className="bi bi-eye"></i>
+                        </button>
+                        <button
+                          className="btn btn-outline-danger btn-sm"
+                          onClick={() => this.excluirVenda(index)}
+                          title="Excluir venda"
+                        >
+                          <i className="bi bi-trash"></i>
                         </button>
                       </div>
                     </li>
